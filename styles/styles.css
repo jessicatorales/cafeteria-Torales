@@ -1,0 +1,35 @@
+@font-face {
+   font-family: blackout;
+   src: url(../fonts/Blackout.otf);
+}
+
+body{
+   background-color:white ;
+   font-family: blackout;
+  }
+  
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h1{
+   color: rgb(151, 19, 111)
+}
+h2{
+   color: black;
+   margin: 20px
+}
+img{
+   height: 200px;
+}
+
+.div__categoria{
+   display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.div__categoria div{
+   margin: 10px;
+}
