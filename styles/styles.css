@@ -1,11 +1,11 @@
 @font-face {
-   font-family: blackout;
-   src: url(../fonts/Blackout.otf);
+   font-family: milkyhoney;
+   src: url(../fonts/milkyhoney.otf);
 }
 
 body{
    background-color:white ;
-   font-family: blackout;
+   font-family: milkyhoney;
   }
   
 * {
