@@ -1,10 +1,11 @@
 
 class Producto {
-    constructor(id, nombre, descripcion, precio, stock) {
+    constructor(id, nombre, descripcion, precio, imagen, stock) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.imagen = imagen;
         this.stock = stock;
     }
 
@@ -13,18 +14,123 @@ class Producto {
     }
 }
 
-const producto0 = new Producto(0, "Cafe en grano Bonafide 1kg", "Paquete color negro, cafe tostado", 4425, 10);
-const producto1 = new Producto(1, "Cafe molido Martinez 250g", "Tipo Italiano,fuerte", 1485, 15);
-const producto2 = new Producto(2, "Cafe tostado molido Cabrales 260g", "Libre de gluten, sin T.A.C.C.", 1690, 20);
+class Carrito {
+    constructor() {
+        this.id = id,
+            this.nombre = nombre,
+            this.cantidad = cantidad
+    }
+}
+const producto0 = new Producto(0, "Cafe en grano Bonafide 1kg", "Paquete color negro, cafe tostado", 4425, "../assets/cafeengrano1.jpg", 10);
+const producto1 = new Producto(1, "Cafe molido Martinez 250g", "Tipo Italiano,fuerte", 1485, "../assets/cafeengrano3.jpg", 15);
+const producto2 = new Producto(2, "Cafe tostado molido Cabrales 260g", "Libre de gluten, sin T.A.C.C.", 1690, "../assets/cafemolido1.jpg", 20);
 const producto3 = new Producto(3, "Combo Cafe en capsulas Martinez 60u",
-    "Sabores: Vainilla,Avellana,Tipo Italiano,Moka,Brasil,Colombia", 8355, 10);
+    "Sabores: Vainilla,Avellana,Tipo Italiano,Moka,Brasil,Colombia", 8355, "../assets/capsulasdecafe1.jpg", 10);
 const producto4 = new Producto(4, "Cafe en capsulas Starbucks 20u",
-    "Sabores: Espresso Roast, House Blend, Pike Place Roast, Blonde", 4499, 20);
+    "Sabores: Espresso Roast, House Blend, Pike Place Roast, Blonde", 4499, "../assets/capsulasdecafe2.jpg", 20);
 
-const productos = [producto0, producto1, producto2, producto3, producto4];
+let productos = []
+productos.push(producto0);
+productos.push(producto1);
+productos.push(producto2);
+productos.push(producto3);
+productos.push(producto4);
+
+localStorage.setItem("productos", JSON.stringify(productos))
+
+let infoProductos = JSON.parse(localStorage.getItem("productos"))
+let divProducto = document.getElementById("div__categoria")
+
+infoProductos.forEach(p => {
+    divProducto.innerHTML +=
+        `
+    <div>
+        <img src="${p.imagen}">
+        <p>${p.nombre}</p>
+        <p>$ ${p.precio}</p>
+        <button id=${p.id} class="btn__producto">AGREGAR AL CARRITO</button>
+    </div>
+    `
+});
+
+let precioTotal = 0
 const carrito = []
+let productosEnCarrito = []
 
-let productosOfrecidos = "Nuestros productos: "
+let divBody = document.getElementById("div__body")
+let divCard = document.getElementById("div__card")
+let btnFinalizar = document.getElementById("btn__comprar")
+localStorage.setItem("productosEnCarrito", JSON.stringify(productosEnCarrito))
+
+function agregarProducto() {
+    divProducto.onclick = (e) => {
+        let _id = parseInt(e.target.id)
+        let productoElegido = productos.find(p => p.id === _id)
+        let temp = carrito.includes(productoElegido)
+        Toastify({
+            text: `El producto ${productoElegido.nombre} fue agregado al carrito`,
+            duration: 3000,
+            style: {
+                background: "#000"
+            }
+        }).showToast();
+
+        if (temp) {
+            productosEnCarrito = JSON.parse(localStorage.getItem("productosEnCarrito"))
+            let temp = productosEnCarrito.find(p => p.id === _id)
+            temp.cantidad = temp.cantidad + 1
+            localStorage.setItem("productosEnCarrito", JSON.stringify(productosEnCarrito))
+            return productosEnCarrito
+        } else {
+            carrito.push(productoElegido)
+            productosEnCarrito = JSON.parse(localStorage.getItem("productosEnCarrito"))
+            let productoAMostrar = { "id": _id, "nombre": productoElegido.nombre, "cantidad": 1 }
+            productosEnCarrito.push(productoAMostrar)
+            localStorage.setItem("productosEnCarrito", JSON.stringify(productosEnCarrito))
+        }
+        precioTotal += productoElegido.precio
+        localStorage.setItem("total", precioTotal)
+    }
+}
+
+function terminarCompra() {
+    btnFinalizar.onclick = () => {
+        precioTotal = localStorage.getItem("total")
+        divBody.innerHTML = `
+            <div id="div__listado">
+                <h1 id="titulo">CARRITO</h1>
+            </div>
+            <div id="div__total"></div>
+            `
+        let divListado = document.getElementById("div__listado")
+        let divTotal = document.getElementById("div__total")
+        productosEnCarrito.forEach(p => {
+            console.log(p)
+            divListado.innerHTML += `<p class="h1">- ${p.nombre} (x${p.cantidad}) </p>`
+        })
+        divTotal.innerHTML += `
+        <p class= "h2">Total: $${precioTotal}</p> 
+        <button id="btnFinalizar">Comprar</button>`
+
+        let btnFinalizar = document.getElementById("btnFinalizar")
+
+
+        btnFinalizar.onclick = () => {
+            location.reload()
+        }
+
+        localStorage.clear()
+        b = 0
+        precioTotal = 0
+        carrito = []
+    }
+}
+
+agregarProducto()
+terminarCompra()
+
+/*
+const productosOfrecidos = "Nuestros productos: "
 
 function validarRespuesta(resp) {
     while (isNaN(resp)) {
@@ -33,6 +139,7 @@ function validarRespuesta(resp) {
     }
     return respuesta;
 }
+
 
 function agregarProducto() {
     for (item of productos) {
@@ -44,7 +151,7 @@ function agregarProducto() {
     let respuesta = parseInt(prompt(productosOfrecidos));
 
     while (!isNaN(respuesta)) {
-        while (respuesta != 00) {
+        while (respuesta !== 00) {
             switch (respuesta) {
                 case 0:
                     carrito.push(productos[0]);
@@ -88,6 +195,7 @@ function agregarProducto() {
     }
 }
 
+
 let productosCarrito = "Productos seleccionados: ";
 let precioCarrito = 0;
 
@@ -113,7 +221,7 @@ function crearProducto() {
         precio = parseInt(prompt("Precio del prodcuto:"));
         stock = parseInt(prompt("Cantidad del prodcuto:"));
 
-        if (nombre == "" || isNaN(precio) || isNaN(stock)) {
+        if (nombre === "" || isNaN(precio) || isNaN(stock)) {
             validar = false;
             alert("Uno o más datos son erróneos, ingresalos nuevamente");
         } else {
@@ -218,3 +326,4 @@ function pedirDatos() {
 
 
 
+*/
