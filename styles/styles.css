@@ -3,33 +3,126 @@
    src: url(../fonts/milkyhoney.otf);
 }
 
-body {
-   background-color: white;
-   font-family: milkyhoney;
-}
-
 * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
+   text-align: center;
+}
+
+body {
+   background-size: cover;
+   background-image: url("../assets/cafe-granos.jpg");
+   font-family: milkyhoney;
+}
+
+footer {
+   text-align: center;
+   padding: 10px;
+   background-color: rgb(37, 12, 2);
+   color: white;
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+}
+
+.div__body {
+   background-color: #00000099;
+}
+
+ul {
+   list-style-type: none;
+   overflow: hidden;
+   background-color: rgb(37, 12, 2);
+   margin: 0;
+}
+
+li {
+   float: left;
+}
+
+li a {
+   font-size: x-large;
+   display: block;
+   color: white;
+   text-align: center;
+   padding: 14px 16px;
+   text-decoration: none;
+}
+
+li a:hover {
+   background-color: rgb(53, 17, 3);
+   color: rgb(228, 79, 183);
+
+}
+
+.li__carrito {
+   float: right;
+   padding-right: 20px;
+}
+
+.carrito {
+   position: relative;
+   color: white;
+   float: right;
+}
+
+.carritoAmount {
+   position: absolute;
+   top: -15px;
+   right: -10px;
+   font-size: 16px;
+   background-color: rgb(228, 79, 183);
+   color: white;
+   padding: 3px;
+   border-radius: 3px;
 }
 
 h1 {
-   color: rgb(151, 19, 111)
+   color: rgb(228, 79, 183);
+   margin: 20px;
 }
 
 h2 {
-   color: black;
-   margin: 20px
+   color: rgb(190, 186, 186);
 }
 
-img {
+h4 {
+   color: rgb(190, 186, 186);
+
+}
+
+
+.img__index {
+   width: 600px;
+   padding: 20px;
+}
+
+.div__producto {
+   background-color: #00000030;
+   padding: 20px;
+}
+
+.img__producto {
    height: 200px;
+}
+
+.p__producto__texto {
+   font-size: large;
+   color: rgb(221, 216, 216);
+   padding: 10px;
+}
+
+.p__producto__precio {
+   font-size: x-large;
+   color: rgb(235, 204, 204);
 }
 
 .div__categoria {
    display: flex;
-   justify-content: flex-start;
+   justify-content: center;
    flex-direction: row;
    flex-wrap: wrap;
 }
@@ -44,14 +137,15 @@ img {
    justify-content: center;
 }
 
-.btn__producto{
+.btn__producto {
    width: 300px;
    background-color: rgb(108, 202, 108);
    padding: 10px;
 }
+
 .btn__comprar {
    width: 300px;
-   color:white;
+   color: white;
    background-color: forestgreen;
    padding: 10px;
 }
