@@ -136,12 +136,12 @@ h4 {
 }
 .btn__Checkout{
    width: 150px;
-   background-color: rgb(108, 202, 108);
+   background-color:  rgb(228, 79, 183,0.9);
    padding: 10px;
 }
 .btn__RemoveAll{
    width: 150px;
-   background-color: rgb(156, 26, 26);
+   background-color: rgba(156, 56, 26, 0.9);
    padding: 10px;
    color: wheat;
 }
@@ -165,14 +165,12 @@ h4 {
 }
 
 .bi-dash-square-fill {
-   color: red;
+   color: rgb(228, 79, 183,0.9);
 }
 
 .bi-plus-square-fill {
-   color: green;
+   color:rgba(35, 194, 83, 0.9);
 }
-
-
 
 .btn__comprar {
    width: 300px;
@@ -189,13 +187,8 @@ h4 {
    gap: 15px;
 }
 
-/**
- * ! style rules for carrito-item
- **/
-
 .carrito__item {
-   border: 2px solid #a3b1bf;
-   border-radius: 5px;
+   
    display: flex;
    align-items: center;
    justify-content: center;
@@ -204,7 +197,7 @@ h4 {
 .carrito__item__precio {
    background-color: #212529;
    color: white;
-   border-radius: 4px;
+   
    padding: 3px 6px;
 }
 
